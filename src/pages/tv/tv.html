@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start> 
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>TV</ion-title>
+  </ion-navbar>  
+</ion-header>
+
+<ion-content>
+  <!-- <ion-item>
+    <ion-label>Género</ion-label>
+    <ion-select [(ngModel)]="currentGender" (ngModelChange)="onChangeGenre($event)">
+      <ion-option value="{{genre.id}}" *ngFor="let genre of genres" [selected]="genre.id == currentGenre">{{genre.name}}</ion-option>
+    </ion-select>
+  </ion-item>   -->
+  <!-- Mensaje de sin resultado y botón a formulario de creación -->
+  <ion-row *ngIf="tvs.length === 0">
+    <ion-col>
+      <div class="info-message" text-center>
+        No se ha encontrado ninguna serie con los criterios seleccionados
+      </div>
+    </ion-col>
+  </ion-row>
+  <!-- Listado de elementos -->
+  <ion-list class="list-items" *ngFor="let tv of tvs">
+    <ion-card (click)="goToTV(tv.id)">
+      <img src="{{ tv.poster_path | assets }}">
+      <ion-card-content>
+        <ion-card-title>
+          {{tv.original_name}}
+        </ion-card-title>
+        <p>
+          {{tv.overview}}
+        </p>
+      </ion-card-content>
+    </ion-card>    
+  </ion-list>
+  <!-- Para hacer scroll "infinito" del listado -->
+  <ion-infinite-scroll (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

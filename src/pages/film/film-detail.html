@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ film.original_title }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card id="detail-item" *ngIf="film.original_title">
+    <img src="{{ film.poster_path | assets }}">
+    <ion-card-content>
+      <ion-card-title>{{ film.original_title }}</ion-card-title>
+      <span class="categorie">{{ film.status }}</span>
+      <div>{{film.overview}}</div>
+      <div class="info">
+        <span>
+          <ion-icon name="flame" class="danger-color"></ion-icon>
+          <span>{{film.release_date}}</span>
+        </span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

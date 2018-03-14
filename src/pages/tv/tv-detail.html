@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ tv.original_name }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card id="detail-item" *ngIf="tv.original_name">
+    <img src="{{ tv.poster_path | assets }}">
+    <ion-card-content>
+      <ion-card-title>{{ tv.original_name }}</ion-card-title>
+      <span class="categorie">{{ tv.status }}</span>
+      <div>{{ tv.overview }}</div>
+      <div class="info">
+        <span>
+          <ion-icon name="flame" class="danger-color"></ion-icon>
+          <span>{{tv.first_air_date}}</span>
+        </span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
