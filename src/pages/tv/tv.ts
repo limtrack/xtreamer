@@ -14,6 +14,10 @@ export class TVPage implements OnInit{
   protected tvs: Array<any> = [];
   protected currentPage: number = 0;
 
+  // Barra de búsqueda
+  public querySearch: String = '';
+  public showSearchbar: Boolean = false;  
+
   constructor(public customPage: CustomPage,
               protected tvService: TVService) {}
 
@@ -29,11 +33,17 @@ export class TVPage implements OnInit{
    * Obtiene películas por genero
    */
   public getTVs() {
+
+    if(this.querySearch !== ''){
+      this.currentPage = 0;
+    }
+
     const params = {
       page: this.currentPage + 1,
       language: AppSettings.DEFAULT_LANGUAGE,
       include_adult: false,
       sort_by: 'vote_average.asc',
+      query: this.querySearch
     }
 
     this.customPage.toggleLoading(true);
@@ -59,8 +69,12 @@ export class TVPage implements OnInit{
       : [];
     
     this.currentPage = data.page;
-    for (let i = 0; i < currentTVs.length; i++) {
-      this.tvs.push(currentTVs[i]);
+    if (this.currentPage > 1) {
+      for (let i = 0; i < currentTVs.length; i++) {
+        this.tvs.push(currentTVs[i]);
+      }  
+    }else{
+      this.tvs = data.results;
     }
   }
 
@@ -81,5 +95,24 @@ export class TVPage implements OnInit{
   public nextPage(event:any) {
     this.getTVs();
   }
+
+  /**
+   * Realiza una búsqueda por nombre de película
+   * 
+   * @param event - evento lanzado
+   */
+  public searchTVs(event) {
+    if (this.querySearch.length > 2 || this.querySearch.length === 0) {
+      this.getTVs();
+    }
+  }
+
+  /**
+   * Muestra/ocluta barra de búsqueda
+   */
+  public toggleSearchBar() {
+    this.showSearchbar = !this.showSearchbar;
+  }  
+  
 
 }

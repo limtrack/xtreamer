@@ -5,18 +5,32 @@
 </ion-header>
 
 <ion-content>
-  <ion-card id="detail-item" *ngIf="tv.original_name">
-    <img src="{{ tv.poster_path | assets }}">
-    <ion-card-content>
-      <ion-card-title>{{ tv.original_name }}</ion-card-title>
-      <span class="categorie">{{ tv.status }}</span>
-      <div>{{ tv.overview }}</div>
-      <div class="info">
-        <span>
-          <ion-icon name="flame" class="danger-color"></ion-icon>
-          <span>{{tv.first_air_date}}</span>
-        </span>
-      </div>
-    </ion-card-content>
-  </ion-card>
+  <h2 class="title-section" *ngIf="tv.original_name">Más datos sobre la serie</h2>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-xl-3 col-lg-3 col-md-2 col-sm-1 col-1></ion-col>
+      <ion-col col-xl-6 col-lg-6 col-md-8 col-sm-10 col-10>        
+        <ion-card class="custom-card" *ngIf="tv.original_name">
+          <div class="wrap-image">
+            <img src="{{ tv.poster_path | assets }}">
+          </div>
+          <ion-card-content>
+            <ion-card-title>{{ tv.original_name }}</ion-card-title>
+            <div class="date">{{ tv.first_air_date }}</div>
+            <div class="text">{{ tv.overview }}</div>
+          </ion-card-content>
+          <div class="info">
+            <span class="element">
+              Popularidad
+              <span>{{tv.popularity}}</span>
+            </span>
+            <span class="element">
+              Género
+              <span>{{tv.genres[0].name}}</span>
+            </span>              
+          </div>          
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

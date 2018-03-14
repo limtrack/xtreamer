@@ -18,7 +18,7 @@ export class FilmService{
    * @return {Observable}
    */
   public getFilms(params:any):Observable<Response> {
-    let url = params.query 
+    let url = params.query && params.query !== ''
       ? '/search/movie'
       : '/discover/movie';
     let _params = [];

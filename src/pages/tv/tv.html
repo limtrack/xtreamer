@@ -5,17 +5,23 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>TV</ion-title>
+    <ion-title>Series</ion-title>
+    <ion-buttons end> 
+      <button ion-button (click)="toggleSearchBar()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>    
   </ion-navbar>  
 </ion-header>
 
 <ion-content>
-  <!-- <ion-item>
-    <ion-label>Género</ion-label>
-    <ion-select [(ngModel)]="currentGender" (ngModelChange)="onChangeGenre($event)">
-      <ion-option value="{{genre.id}}" *ngFor="let genre of genres" [selected]="genre.id == currentGenre">{{genre.name}}</ion-option>
-    </ion-select>
-  </ion-item>   -->
+  <!-- Buscador -->
+  <ion-toolbar no-border class="search-toolbar" *ngIf="showSearchbar">
+    <ion-searchbar
+      [(ngModel)]="querySearch"
+      (ionInput)="searchFilms($event)">
+    </ion-searchbar>
+  </ion-toolbar>
   <!-- Mensaje de sin resultado y botón a formulario de creación -->
   <ion-row *ngIf="tvs.length === 0">
     <ion-col>
@@ -24,19 +30,27 @@
       </div>
     </ion-col>
   </ion-row>
+  <h2 class="title-section" *ngIf="tvs.length > 0">Series más populares</h2>
   <!-- Listado de elementos -->
-  <ion-list class="list-items" *ngFor="let tv of tvs">
-    <ion-card (click)="goToTV(tv.id)">
-      <img src="{{ tv.poster_path | assets }}">
-      <ion-card-content>
-        <ion-card-title>
-          {{tv.original_name}}
-        </ion-card-title>
-        <p>
-          {{tv.overview}}
-        </p>
-      </ion-card-content>
-    </ion-card>    
+  <ion-list class="list-items">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 *ngFor="let tv of tvs">
+          <ion-card class="custom-card" (click)="goToTV(tv.id)" >
+            <div class="wrap-image">
+              <img src="{{ tv.poster_path | assets }}">
+            </div>
+            <ion-card-content>
+              <ion-card-title>
+                {{tv.original_name}}
+              </ion-card-title>
+              <div class="date">{{tv.first_air_date}}</div>
+              <div class="text">{{ tv.overview | limitTo:150 }}</div>              
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
   <!-- Para hacer scroll "infinito" del listado -->
   <ion-infinite-scroll (ionInfinite)="nextPage($event)">

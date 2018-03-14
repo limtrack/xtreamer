@@ -16,7 +16,7 @@ export class FilmPage implements OnInit{
 
   // Barra de búsqueda
   public querySearch: String = '';
-  public showSearchbar: Boolean = false;  
+  public showSearchbar: Boolean = false;
 
   constructor(public customPage: CustomPage,
               protected filmService: FilmService) {}
@@ -26,26 +26,29 @@ export class FilmPage implements OnInit{
    * a ejecutar las acciones que este método describe
    */
   public ngOnInit() {
-    this.getFilms({});
+    this.getFilms();
   }
 
   /**
    * Obtiene películas por genero
    */
-  public getFilms(params) {
-    const defaultParams = {
+  public getFilms() {
+
+    if(this.querySearch !== ''){
+      this.currentPage = 0;
+    }
+
+    const params = {
       page: this.currentPage + 1,
       language: AppSettings.DEFAULT_LANGUAGE,
       include_adult: false,
       sort_by: 'vote_average.asc',
+      query: this.querySearch
     }    
-    let _params = params || {};
-
-    _params = Object.assign(defaultParams, _params);
 
     this.customPage.toggleLoading(true);
     this.filmService
-      .getFilms(_params)
+      .getFilms(params)
       .finally(() => {
         this.customPage.toggleLoading(false);
       })
@@ -65,9 +68,8 @@ export class FilmPage implements OnInit{
       ? data.results
       : [];
 
-    console.log(data.page);
-
-    if (data.page > 0) {
+    this.currentPage = data.page;
+    if (this.currentPage > 1) {
       for (let i = 0; i < currentFilms.length; i++) {
         this.films.push(currentFilms[i]);
       }  
@@ -92,7 +94,7 @@ export class FilmPage implements OnInit{
    * Pagina a la siguiente página de resultados
    */
   public nextPage(event:any) {
-    this.getFilms({});
+    this.getFilms();
   }
 
   /**
@@ -102,7 +104,7 @@ export class FilmPage implements OnInit{
    */
   public searchFilms(event) {
     if (this.querySearch.length > 2 || this.querySearch.length === 0) {
-      this.getFilms({ query: this.querySearch });
+      this.getFilms();
     }
   }
 

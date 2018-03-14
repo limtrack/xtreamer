@@ -5,7 +5,7 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Films</ion-title>
+    <ion-title>Películas</ion-title>
     <ion-buttons end> 
       <button ion-button (click)="toggleSearchBar()">
         <ion-icon name="search"></ion-icon>
@@ -30,19 +30,27 @@
       </div>
     </ion-col>
   </ion-row>
+  <h2 class="title-section" *ngIf="films.length > 0">Películas más populares</h2>
   <!-- Listado de elementos -->
-  <ion-list class="list-items" *ngFor="let film of films">
-    <ion-card (click)="goToFilm(film.id)">
-      <img src="{{ film.poster_path | assets }}">
-      <ion-card-content>
-        <ion-card-title>
-          {{film.title}}
-        </ion-card-title>
-        <p>
-          {{film.overview}}
-        </p>
-      </ion-card-content>
-    </ion-card>    
+  <ion-list class="list-items">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12 *ngFor="let film of films">        
+          <ion-card  class="custom-card" (click)="goToFilm(film.id)">
+            <div class="wrap-image">
+              <img src="{{ film.poster_path | assets }}">
+            </div>
+            <ion-card-content>
+              <ion-card-title>
+                {{film.title}}
+              </ion-card-title>
+              <div class="date">{{film.release_date}}</div>
+              <div class="text">{{ film.overview | limitTo:150 }}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
   <!-- Para hacer scroll "infinito" del listado -->
   <ion-infinite-scroll (ionInfinite)="nextPage($event)">

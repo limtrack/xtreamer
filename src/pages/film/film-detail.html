@@ -5,18 +5,33 @@
 </ion-header>
 
 <ion-content>
-  <ion-card id="detail-item" *ngIf="film.original_title">
-    <img src="{{ film.poster_path | assets }}">
-    <ion-card-content>
-      <ion-card-title>{{ film.original_title }}</ion-card-title>
-      <span class="categorie">{{ film.status }}</span>
-      <div>{{film.overview}}</div>
-      <div class="info">
-        <span>
-          <ion-icon name="flame" class="danger-color"></ion-icon>
-          <span>{{film.release_date}}</span>
-        </span>
-      </div>
-    </ion-card-content>
-  </ion-card>
+  <h2 class="title-section" *ngIf="film.original_title">Más datos sobre la película</h2>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-xl-3 col-lg-3 col-md-2 col-sm-1 col-1></ion-col>
+      <ion-col col-xl-6 col-lg-6 col-md-8 col-sm-10 col-10>    
+        <ion-card class="custom-card" *ngIf="film.original_title">
+          <div class="wrap-image">
+            <img src="{{ film.poster_path | assets }}">
+          </div>
+          <ion-card-content>
+            <ion-card-title>{{ film.original_title }}</ion-card-title>
+            <div class="date">{{ film.release_date }}</div>
+            <div class="text">{{film.overview}}</div>
+          </ion-card-content>
+          <div class="info">
+            <span class="element">
+              Popularidad
+              <span>{{film.popularity}}</span>
+            </span>
+            <span class="element">
+              Género
+              <span>{{film.genres[0].name}}</span>
+            </span>              
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-xl-3 col-lg-3 col-md-2 col-sm-1 col-1></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

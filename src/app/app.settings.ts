@@ -15,15 +15,15 @@ export class AppSettings {
   public static MENU_PAGES = [
     { 
       id:'films',
-      title: 'Films', 
+      title: 'Películas', 
       component: AppSettings.FILM_PAGE, 
-      icon: 'bulb',
+      icon: 'film',
     },
     { 
       id:'tv',
-      title: 'TVs', 
+      title: 'Series', 
       component: AppSettings.TV_PAGE, 
-      icon: 'bulb',
+      icon: 'desktop',
     }    
   ];
 }

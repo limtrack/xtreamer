@@ -18,10 +18,9 @@ export class TVService{
    * @return {Observable}
    */
   public getTVs(params:any):Observable<Response> {
-    let url = params.query 
-      ? '/discover/tv'
-      : '/search/tv';
-
+    let url = params.query && params.query !== ''
+      ? '/search/tv'
+      : '/discover/tv';
     let _params = [];
     
     if(typeof params === 'object'){

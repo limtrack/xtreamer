@@ -1,10 +1,10 @@
 <ion-menu #mainMenu [content]="mainNav" side="left" id="main-menu">
   <ion-content>
+    <h3 class="title-nav">MENU</h3>
     <ion-list #listPages>
       <ion-item *ngFor="let p of pages" (click)="goPageInNav(p)" [ngClass]="{'active': p.active}">
         <ion-icon name="{{p.icon}}"></ion-icon>
         {{p.title}}
-        <!--<ion-badge item-right>260k</ion-badge>-->
       </ion-item>
     </ion-list>
   </ion-content>

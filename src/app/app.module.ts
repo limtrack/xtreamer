@@ -11,6 +11,7 @@ import { FilmDetailPage } from '../pages/film/film-detail';
 import { TVDetailPage } from '../pages/tv/tv-detail';
 // Pipes
 import { AssetsPipe } from '../pipes/assets/';
+import { limitToPipe } from '../pipes/limitto/';
 // App
 import { MyApp } from './app.component';
 
@@ -25,6 +26,7 @@ import { MyApp } from './app.component';
     FilmDetailPage,
     TVDetailPage,
     AssetsPipe,
+    limitToPipe
   ],
   // Igual que los "import" que poseen los componentes, pero estos se realizarán
   // de modo global y solo se cargarán una vez
